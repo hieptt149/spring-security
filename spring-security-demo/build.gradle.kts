@@ -21,8 +21,14 @@ dependencies {
 	implementation(libs.spring.jdbc)
 	runtimeOnly(libs.mysql.connector)
 
+	implementation(libs.lombok)
+    compileOnly(libs.lombok)
+    annotationProcessor(libs.lombok)
+
 	testImplementation(libs.spring.boot.test)
 	testRuntimeOnly(libs.junit.platform.launcher)
+	testCompileOnly(libs.lombok)
+    testAnnotationProcessor(libs.lombok)
 }
 
 tasks.withType<Test> {

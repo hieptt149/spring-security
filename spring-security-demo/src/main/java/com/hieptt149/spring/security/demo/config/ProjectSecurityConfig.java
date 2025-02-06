@@ -1,4 +1,4 @@
-package com.hieptt149.spring_security_demo.config;
+package com.hieptt149.spring.security.demo.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
