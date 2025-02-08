@@ -2,9 +2,8 @@ spring:
   application:
     name: ${SPRING_APP_NAME:spring-security-demo}
   config:
-    import: application-prod.yml
-  profiles:
-    active: prod
+    activate:
+      on-profile: prod
   security:
     user:
       name: ${SECURITY_USERNAME:hieptt149}
@@ -14,10 +13,10 @@ spring:
     username: ${DATABASE_USERNAME:root}
     password: ${DATABASE_PASSWORD:root}
   jpa:
-    show-sql: ${JPA_SHOW_SQL:true}
+    show-sql: ${JPA_SHOW_SQL:false}
     properties:
       hibernate:
-        format_sql: ${HIBERNATE_FORMAT_SQL:true}
+        format_sql: ${HIBERNATE_FORMAT_SQL:false}
 
 logging:
   pattern:
@@ -25,4 +24,4 @@ logging:
   level:
     org:
       springframework:
-        security: ${SPRING_SECURITY_LOG_LEVEL:TRACE}
+        security: ${SPRING_SECURITY_LOG_LEVEL:ERROR}
