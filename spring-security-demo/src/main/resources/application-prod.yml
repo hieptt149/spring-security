@@ -25,3 +25,8 @@ logging:
     org:
       springframework:
         security: ${SPRING_SECURITY_LOG_LEVEL:ERROR}
+
+server:
+  servlet:
+    session:
+      timeout: ${SESSION_TIMEOUT:10m}
