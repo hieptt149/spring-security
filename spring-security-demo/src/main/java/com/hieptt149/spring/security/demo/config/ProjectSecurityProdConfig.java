@@ -1,5 +1,6 @@
 package com.hieptt149.spring.security.demo.config;
 
+import com.hieptt149.spring.security.demo.exceptionhandling.CustomAccessDeniedHandler;
 import com.hieptt149.spring.security.demo.exceptionhandling.CustomBasicAuthenticationEntryPoint;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -28,6 +29,7 @@ public class ProjectSecurityProdConfig {
                 );
         http.formLogin(withDefaults());
         http.httpBasic(hbc -> hbc.authenticationEntryPoint(new CustomBasicAuthenticationEntryPoint()));
+        http.exceptionHandling(ehc -> ehc.accessDeniedHandler(new CustomAccessDeniedHandler()));
         return http.build();
     }
 
