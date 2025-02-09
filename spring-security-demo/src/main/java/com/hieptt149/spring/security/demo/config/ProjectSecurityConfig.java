@@ -21,7 +21,8 @@ public class ProjectSecurityConfig {
 
     @Bean
     SecurityFilterChain defaultSecurityFilterChain(HttpSecurity http) throws Exception {
-        http.sessionManagement(smc -> smc.invalidSessionUrl("/invalidSession")
+        http.sessionManagement(smc -> smc.sessionFixation(sfc -> sfc.newSession()) // Default by spring security
+                        .invalidSessionUrl("/invalidSession")
                         .maximumSessions(3)
                         .maxSessionsPreventsLogin(true)
                 )
