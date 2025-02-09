@@ -1,5 +1,6 @@
 package com.hieptt149.spring.security.demo.config;
 
+import com.hieptt149.spring.security.demo.exceptionhandling.CustomBasicAuthenticationEntryPoint;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
@@ -26,7 +27,7 @@ public class ProjectSecurityProdConfig {
                         .requestMatchers("/notices", "/contact", "/error", "/register").permitAll()
                 );
         http.formLogin(withDefaults());
-        http.httpBasic(withDefaults());
+        http.httpBasic(hbc -> hbc.authenticationEntryPoint(new CustomBasicAuthenticationEntryPoint()));
         return http.build();
     }
 
