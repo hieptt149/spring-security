@@ -4,7 +4,7 @@ spring:
   config:
     import: application-prod.yml
   profiles:
-    active: prod
+    active: default
   security:
     user:
       name: ${SECURITY_USERNAME:hieptt149}

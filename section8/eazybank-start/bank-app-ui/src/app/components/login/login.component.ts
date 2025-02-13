@@ -3,6 +3,7 @@ import { User } from "src/app/model/user.model";
 import { NgForm } from '@angular/forms';
 import { LoginService } from 'src/app/services/login/login.service';
 import { Router } from '@angular/router';
+import { getCookie } from 'typescript-cookie';
 
 
 @Component({
@@ -28,6 +29,8 @@ export class LoginComponent implements OnInit {
         this.model = <any> responseData.body;
         this.model.authStatus = 'AUTH';
         window.sessionStorage.setItem("userdetails",JSON.stringify(this.model));
+        let xsrfToken = getCookie('XSRF-TOKEN')!;
+        window.sessionStorage.setItem('XSRF-TOKEN', xsrfToken);
         this.router.navigate(['dashboard']);
       });
 
