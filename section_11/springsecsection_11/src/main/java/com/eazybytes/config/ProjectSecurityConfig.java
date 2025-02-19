@@ -50,7 +50,7 @@ public class ProjectSecurityConfig {
                     }
                 }))
                 .csrf(csrfConfig -> csrfConfig.csrfTokenRequestHandler(csrfTokenRequestAttributeHandler)
-                        .ignoringRequestMatchers( "/contact","/register", "/apiLogin")
+                        .ignoringRequestMatchers("/contact", "/register", "/apiLogin")
                         .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse()))
                 .addFilterAfter(new CsrfCookieFilter(), BasicAuthenticationFilter.class)
                 .addFilterBefore(new RequestValidationBeforeFilter(), BasicAuthenticationFilter.class)
@@ -89,12 +89,12 @@ public class ProjectSecurityConfig {
 
     @Bean
     public AuthenticationManager authenticationManager(UserDetailsService userDetailsService,
-            PasswordEncoder passwordEncoder) {
+                                                       PasswordEncoder passwordEncoder) {
         EazyBankUsernamePwdAuthenticationProvider authenticationProvider =
                 new EazyBankUsernamePwdAuthenticationProvider(userDetailsService, passwordEncoder);
         ProviderManager providerManager = new ProviderManager(authenticationProvider);
         providerManager.setEraseCredentialsAfterAuthentication(false);
-        return  providerManager;
+        return providerManager;
     }
 
 }
