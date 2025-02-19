@@ -13,6 +13,7 @@ springDataJpa = "3.4.2"
 springJdbc = "3.4.2"
 mysqlConnector = "9.2.0"
 lombok = "1.18.34"
+jjwt = "0.12.6"
 
 [plugins]
 spring-boot = { id = "org.springframework.boot", version.ref = "springBoot" }
@@ -28,3 +29,6 @@ spring-data-jpa = { module = "org.springframework.boot:spring-boot-starter-data-
 spring-jdbc = { module = "org.springframework.boot:spring-boot-starter-jdbc", version.ref = "springJdbc" }
 mysql-connector = { module = "com.mysql:mysql-connector-j", version.ref = "mysqlConnector" }
 lombok = { module = "org.projectlombok:lombok", version.ref = "lombok" }
+jjwt-api = { module = "io.jsonwebtoken:jjwt-api", version.ref = "jjwt" }
+jjwt-impl = { module = "io.jsonwebtoken:jjwt-impl", version.ref = "jjwt" }
+jjwt-jackson = { module = "io.jsonwebtoken:jjwt-jackson", version.ref = "jjwt" }

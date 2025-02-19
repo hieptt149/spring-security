@@ -1,11 +1,9 @@
 package com.hieptt149.spring.security.demo.config;
 
+import com.hieptt149.spring.security.demo.constants.JwtConstants;
 import com.hieptt149.spring.security.demo.exceptionhandling.CustomAccessDeniedHandler;
 import com.hieptt149.spring.security.demo.exceptionhandling.CustomBasicAuthenticationEntryPoint;
-import com.hieptt149.spring.security.demo.filter.AuthoritiesLoggingAfterFilter;
-import com.hieptt149.spring.security.demo.filter.AuthoritiesLoggingAtFilter;
-import com.hieptt149.spring.security.demo.filter.CsrfCookieFilter;
-import com.hieptt149.spring.security.demo.filter.RequestValidationBeforeFilter;
+import com.hieptt149.spring.security.demo.filter.*;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
@@ -33,14 +31,14 @@ public class ProjectSecurityProdConfig {
     @Bean
     SecurityFilterChain defaultSecurityFilterChain(HttpSecurity http) throws Exception {
         CsrfTokenRequestAttributeHandler handler = new CsrfTokenRequestAttributeHandler();
-        http.securityContext(contextConfig -> contextConfig.requireExplicitSave(false))
-                .sessionManagement(sessionConfig -> sessionConfig.sessionCreationPolicy(SessionCreationPolicy.ALWAYS))
+        http.sessionManagement(sessionConfig -> sessionConfig.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .cors(corsConfig -> corsConfig.configurationSource(request -> {
                     CorsConfiguration config = new CorsConfiguration();
                     config.setAllowedOrigins(Collections.singletonList("https://localhost:4200"));
                     config.setAllowedMethods(Collections.singletonList("*"));
                     config.setAllowCredentials(true);
                     config.setAllowedHeaders(Collections.singletonList("*"));
+                    config.setExposedHeaders(Collections.singletonList(JwtConstants.JWT_HEADER));
                     config.setMaxAge(Duration.ofMinutes(60));
                     return config;
                 }))
@@ -52,6 +50,9 @@ public class ProjectSecurityProdConfig {
                 .addFilterBefore(new RequestValidationBeforeFilter(), BasicAuthenticationFilter.class)
                 .addFilterAfter(new AuthoritiesLoggingAfterFilter(), BasicAuthenticationFilter.class)
                 .addFilterAt(new AuthoritiesLoggingAtFilter(), BasicAuthenticationFilter.class)
+                .addFilterAfter(new JwtTokenGeneratorFilter(), BasicAuthenticationFilter.class)
+                // validate the jwt token so that the authentication object will have authenticated = true -> will not perform the authentication again
+                .addFilterBefore(new JwtTokenValidatorFilter(), BasicAuthenticationFilter.class)
                 .requiresChannel(rcc -> rcc.anyRequest().requiresSecure()) // Only accept https
                 .authorizeHttpRequests((requests) -> requests
 //                        .requestMatchers("/myAccount").hasAuthority("VIEWACCOUNT")

@@ -25,6 +25,10 @@ dependencies {
     compileOnly(libs.lombok)
     annotationProcessor(libs.lombok)
 
+	implementation(libs.jjwt.api)
+	runtimeOnly(libs.jjwt.impl)
+	runtimeOnly(libs.jjwt.jackson)
+
 	testImplementation(libs.spring.boot.test)
 	testRuntimeOnly(libs.junit.platform.launcher)
 	testCompileOnly(libs.lombok)
