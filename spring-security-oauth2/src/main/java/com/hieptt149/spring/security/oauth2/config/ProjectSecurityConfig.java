@@ -24,24 +24,24 @@ public class ProjectSecurityConfig {
         return httpSecurity.build();
     }
 
-    @Bean
-    ClientRegistrationRepository clientRegistrationRepository() {
-        ClientRegistration githubClientRegistration = githubClientRegistration();
-        ClientRegistration facebookClientRegistration = facebookClientRegistration();
-        return new InMemoryClientRegistrationRepository(githubClientRegistration, facebookClientRegistration);
-    }
+//    @Bean
+//    ClientRegistrationRepository clientRegistrationRepository() {
+//        ClientRegistration githubClientRegistration = githubClientRegistration();
+//        ClientRegistration facebookClientRegistration = facebookClientRegistration();
+//        return new InMemoryClientRegistrationRepository(githubClientRegistration, facebookClientRegistration);
+//    }
 
-    private ClientRegistration githubClientRegistration() {
-        return CommonOAuth2Provider.GITHUB.getBuilder("github")
-                .clientId("Ov23lic52iYVO5U4Pl34")
-                .clientSecret("3b2e69dfb13888299d9bd71bec61222513adfa42")
-                .build();
-    }
+//    private ClientRegistration githubClientRegistration() {
+//        return CommonOAuth2Provider.GITHUB.getBuilder("github")
+//                .clientId("Ov23lic52iYVO5U4Pl34")
+//                .clientSecret("3b2e69dfb13888299d9bd71bec61222513adfa42")
+//                .build();
+//    }
 
-    private ClientRegistration facebookClientRegistration() {
-        return CommonOAuth2Provider.FACEBOOK.getBuilder("facebook")
-                .clientId("575898368783351")
-                .clientSecret("7db85fe68c75a6d7e348574a26a8a902")
-                .build();
-    }
+//    private ClientRegistration facebookClientRegistration() {
+//        return CommonOAuth2Provider.FACEBOOK.getBuilder("facebook")
+//                .clientId("575898368783351")
+//                .clientSecret("7db85fe68c75a6d7e348574a26a8a902")
+//                .build();
+//    }
 }

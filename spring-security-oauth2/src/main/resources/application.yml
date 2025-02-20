@@ -5,6 +5,15 @@ spring:
     user:
       name: ${SECURITY_USERNAME:eazybytes}
       password: ${SECURITY_PASSWORD:12345}
+    oauth2:
+      client:
+        registration:
+          github:
+            client-id: ${GITHUB_CLIENT_ID:Ov23lic52iYVO5U4Pl34}
+            client-secret: ${GITHUB_CLIENT_SECRET:3b2e69dfb13888299d9bd71bec61222513adfa42}
+          facebook:
+            client-id: ${FACEBOOK_CLIENT_ID:575898368783351}
+            client-secret: ${FACEBOOK_CLIENT_SECRET:7db85fe68c75a6d7e348574a26a8a902}
 
 logging:
   level:
