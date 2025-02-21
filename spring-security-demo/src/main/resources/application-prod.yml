@@ -8,6 +8,10 @@ spring:
     user:
       name: ${SECURITY_USERNAME:hieptt149}
       password: ${SECURITY_PASSWORD:12345}
+    oauth2:
+      resourceserver:
+        jwt:
+          jwk-set-uri: ${JWK_SET_URI:http://localhost:8180/realms/eazybankdev/protocol/openid-connect/certs}
   datasource:
     url: jdbc:mysql://${DATABASE_HOST:localhost}:${DATABASE_PORT:3306}/${DATABASE_NAME:eazybank}
     username: ${DATABASE_USERNAME:root}

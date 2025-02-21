@@ -19,6 +19,7 @@ dependencies {
 	developmentOnly(libs.spring.boot.devtools)
 	implementation(libs.spring.data.jpa)
 	implementation(libs.spring.jdbc)
+	implementation(libs.spring.oauth2.resource.server)
 	runtimeOnly(libs.mysql.connector)
 
 	implementation(libs.lombok)
