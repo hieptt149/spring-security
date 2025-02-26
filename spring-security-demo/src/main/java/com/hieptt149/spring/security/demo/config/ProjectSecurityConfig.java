@@ -2,7 +2,6 @@ package com.hieptt149.spring.security.demo.config;
 
 import com.hieptt149.spring.security.demo.exceptionhandling.CustomAccessDeniedHandler;
 import com.hieptt149.spring.security.demo.filter.CsrfCookieFilter;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
@@ -22,19 +21,19 @@ import java.util.Collections;
 @Profile("!prod")
 public class ProjectSecurityConfig {
 
-    @Value("${spring.security.oauth2.resourceserver.opaquetoken.introspection-uri}")
+    /*@Value("${spring.security.oauth2.resourceserver.opaquetoken.introspection-uri}")
     String introspectionUri;
 
     @Value("${spring.security.oauth2.resourceserver.opaquetoken.client-id}")
     String clientId;
 
     @Value("${spring.security.oauth2.resourceserver.opaquetoken.client-secret}")
-    String clientSecret;
+    String clientSecret;*/
 
     @Bean
     SecurityFilterChain defaultSecurityFilterChain(HttpSecurity httpSecurity) throws Exception {
         JwtAuthenticationConverter jwtAuthenticationConverter = new JwtAuthenticationConverter();
-        jwtAuthenticationConverter.setJwtGrantedAuthoritiesConverter(new KeyCloakRoleConverter());
+        jwtAuthenticationConverter.setJwtGrantedAuthoritiesConverter(new RoleConverter());
         CsrfTokenRequestAttributeHandler handler = new CsrfTokenRequestAttributeHandler();
         httpSecurity.sessionManagement(sessionConfig -> sessionConfig.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .cors(corsConfig -> corsConfig.configurationSource(request -> {
@@ -55,7 +54,7 @@ public class ProjectSecurityConfig {
                 .authorizeHttpRequests((requests) -> requests
 //                        .requestMatchers("/myAccount").hasAuthority("VIEWACCOUNT")
 //                        .requestMatchers("/myBalance").hasAnyAuthority("VIEWACCOUNT", "VIEWBALANCE")
-//                        .requestMatchers("/myLoans").hasAuthority("VIEWLOANS")
+//                        .requestMatchers("/myLoans").hasAuthority 1("VIEWLOANS")
 //                        .requestMatchers("/myCards").hasAuthority("VIEWCARDS")
                                 .requestMatchers("/myAccount").hasRole("USER")
                                 .requestMatchers("/myBalance").hasAnyRole("USER", "ADMIN")
@@ -65,15 +64,15 @@ public class ProjectSecurityConfig {
                                 .requestMatchers("/notices", "/contact", "/error", "/register").permitAll()
                 )
                 .exceptionHandling(ehc -> ehc.accessDeniedHandler(new CustomAccessDeniedHandler()))
-                /*.oauth2ResourceServer(rsc -> rsc.jwt(
+                .oauth2ResourceServer(rsc -> rsc.jwt(
                         jwtConfigurer -> jwtConfigurer.jwtAuthenticationConverter(jwtAuthenticationConverter)
-                ))*/
-                .oauth2ResourceServer(rsc ->
+                ));
+                /*.oauth2ResourceServer(rsc ->
                         rsc.opaqueToken(opaqueTokenConfigurer -> opaqueTokenConfigurer.authenticationConverter(new KeyCloakOpaqueRoleConverter())
                                 .introspectionUri(introspectionUri)
                                 .introspectionClientCredentials(clientId, clientSecret)
                         )
-                );
+                );*/
         return httpSecurity.build();
     }
 }

@@ -11,17 +11,17 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-public class KeyCloakRoleConverter implements Converter<Jwt, Collection<GrantedAuthority>> {
+public class RoleConverter implements Converter<Jwt, Collection<GrantedAuthority>> {
 
     @Override
     public Collection<GrantedAuthority> convert(Jwt source) {
-        Map<String, Object> realmAccess = (Map<String, Object>) source.getClaims().get("realm_access");
+        List<String> roles = (List<String>) source.getClaims().get("scope");
 
-        if (realmAccess == null || realmAccess.isEmpty()) {
+        if (roles == null || roles.isEmpty()) {
             return new ArrayList<>();
         }
 
-        return ((List<String>) realmAccess.get("roles")).stream()
+        return roles.stream()
                 .map(role -> "ROLE_" + role)
                 .map(SimpleGrantedAuthority::new)
                 .collect(Collectors.toUnmodifiableList());
